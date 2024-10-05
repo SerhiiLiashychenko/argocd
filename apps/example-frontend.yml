@@ -4,22 +4,25 @@ metadata:
   name: my-frontend
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "3"  
+    argocd.argoproj.io/sync-wave: "3"    
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-
   source:
-    repoURL: https://github.com/SerhiiLiashychenko/argocd.git
-    targetRevision: HEAD
-    path: ./manifests/frontend
-   
+    repoURL: charts.bitnami.com/bitnami
+    targetRevision: 18.2.2
+    path: ""
+    chart: nginx
+    helm:
+      values: >-
+        initContainers:
+          - name: set-delay
+            image: alpine
+            command: ['sh', '-c', 'sleep 60 && echo "creating dir"']
   destination:
     server: https://kubernetes.default.svc
     namespace: my-frontend
-
-  # Sync policy
   syncPolicy:
     syncOptions:
       - CreateNamespace=true  
