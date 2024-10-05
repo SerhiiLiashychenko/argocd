@@ -9,17 +9,20 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-
   source:
-    repoURL: https://github.com/SerhiiLiashychenko/argocd.git
-    targetRevision: HEAD
-    path: ./manifests/db
-   
+    repoURL: charts.bitnami.com/bitnami
+    targetRevision: 18.2.2
+    path: ""
+    chart: nginx
+    helm:
+      values: >-
+        initContainers:
+          - name: set-delay
+            image: alpine
+            command: ['sh', '-c', 'sleep 60 && echo "creating dir"']
   destination:
     server: https://kubernetes.default.svc
     namespace: my-db
-
-  # Sync policy
   syncPolicy:
     syncOptions:
       - CreateNamespace=true  
