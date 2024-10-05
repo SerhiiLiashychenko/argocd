@@ -20,6 +20,8 @@ spec:
           - name: set-delay
             image: alpine
             command: ['sh', '-c', 'sleep 60 && echo "creating dir"']
+        service:
+          type: ClusterIP
   destination:
     server: https://kubernetes.default.svc
     namespace: my-api
