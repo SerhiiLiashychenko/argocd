@@ -10,7 +10,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: charts.bitnami.com/bitnami
+    repoURL: registry-1.docker.io/bitnamicharts
     targetRevision: 18.2.2
     path: ""
     chart: nginx
